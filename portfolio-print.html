@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>海外GTM工作台 — 产品集</title>
+<style>
+/* ── 重置 & 打印 ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:12pt}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:#1a1a2e;background:#fff;line-height:1.6;
+  max-width:1000px;margin:0 auto;padding:0;
+}
+
+/* ── 打印设置 ── */
+@page{margin:2cm}
+
+/* ── 封面 ── */
+.cover{
+  page-break-after:always;
+  display:flex;flex-direction:column;justify-content:center;
+  height:95vh;text-align:center;
+  background:linear-gradient(135deg,#1E3A5F 0%,#2C5282 100%);
+  color:#fff;padding:3rem;border-radius:0;position:relative;
+  overflow:hidden;
+}
+.cover::after{
+  content:"";position:absolute;top:-30%;right:-20%;width:500px;height:500px;
+  background:rgba(255,255,255,0.03);border-radius:50%;
+}
+.cover>*{position:relative;z-index:1}
+.cover .badge{
+  display:inline-block;margin:0 auto 2rem;
+  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);
+  padding:0.4rem 1.5rem;border-radius:20px;font-size:0.8rem;
+  letter-spacing:2px;font-weight:600;
+}
+.cover h1{font-size:2.8rem;font-weight:800;letter-spacing:-1px;margin-bottom:0.5rem}
+.cover .sub{font-size:1.2rem;opacity:0.9;margin-bottom:1.5rem;font-weight:400}
+.cover .accent{color:#1DB954;font-size:1.1rem;font-weight:600;margin-bottom:3rem}
+.cover .meta{opacity:0.7;font-size:0.9rem;line-height:2}
+.cover .url{color:#1DB954;font-size:0.9rem;word-break:break-all;margin-top:2rem}
+
+/* ── 内容区域 ── */
+.content{padding:0}
+.section{
+  page-break-inside:avoid;
+  margin-bottom:2rem;
+  padding:0;
+}
+.page-break{page-break-before:always}
+
+/* ── 标题 ── */
+.section-title{
+  font-size:1.5rem;font-weight:700;color:#1E3A5F;
+  border-bottom:3px solid #1DB954;
+  padding-bottom:0.3rem;margin-bottom:1rem;margin-top:0.5rem;
+}
+.section-label{
+  font-size:0.7rem;font-weight:700;color:#1DB954;
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:0.3rem;
+}
+
+/* ── 数据表格 ── */
+table{width:100%;border-collapse:collapse;margin:0.8rem 0;font-size:0.85rem}
+th{
+  background:#1E3A5F;color:#fff;font-weight:600;text-align:left;
+  padding:0.5rem 0.6rem;font-size:0.8rem;
+}
+td{padding:0.4rem 0.6rem;border-bottom:1px solid #e5e7eb}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#e8f4e8}
+
+/* ── 正文 ── */
+p,li{font-size:0.9rem;color:#374151;line-height:1.7}
+strong{color:#1E3A5F}
+
+/* ── 信息卡片 ── */
+.info-table p{margin-bottom:0.3rem}
+.info-table .label{font-weight:700;color:#1E3A5F;display:inline-block;width:110px}
+
+/* ── 功能卡片网格 ── */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1rem 0}
+.feature-card{
+  border:1px solid #e5e7eb;border-radius:10px;padding:1.2rem;
+  border-top:4px solid #1DB954;
+}
+.feature-card h4{font-size:1rem;color:#1E3A5F;margin-bottom:0.3rem}
+.feature-card p{font-size:0.8rem;color:#6b7280;line-height:1.5}
+
+/* ── 产品网格 ── */
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:0.8rem 0}
+.prod-card{
+  border:1px solid #e5e7eb;border-radius:8px;padding:0.8rem 1rem;
+  border-left:3px solid #1DB954;
+}
+.prod-card .cat{
+  font-size:0.65rem;font-weight:700;color:#1DB954;text-transform:uppercase;
+  letter-spacing:0.5px;margin-bottom:0.2rem;
+}
+.prod-card .name{font-weight:700;color:#1E3A5F;font-size:1rem;margin-bottom:0.2rem}
+.prod-card .desc{font-size:0.8rem;color:#6b7280;margin-bottom:0.3rem}
+.prod-card .tags{display:flex;flex-wrap:wrap;gap:0.3rem}
+.prod-card .tag{
+  font-size:0.65rem;background:#e5e7eb;color:#6b7280;
+  padding:0.1rem 0.5rem;border-radius:10px;
+}
+
+/* ── 页脚 ── */
+.footer{
+  margin-top:2rem;padding-top:1rem;
+  border-top:1px solid #e5e7eb;text-align:center;
+  font-size:0.75rem;color:#9ca3af;
+}
+
+/* ── 分类标题 ── */
+.cat-header{
+  font-size:1.2rem;font-weight:700;color:#1E3A5F;
+  margin:1.5rem 0 0.5rem 0;
+  display:flex;align-items:center;gap:0.5rem;
+}
+
+/* ── 打印分页 ── */
+@media print{
+  .cover{height:100vh;border-radius:0;page-break-after:always}
+  .section{page-break-inside:avoid}
+  .prod-grid{page-break-inside:avoid}
+  .feature-grid{page-break-inside:avoid}
+  table{font-size:9pt}
+  td,th{padding:4pt 6pt}
+  body{max-width:none;padding:0}
+  .no-print{display:none}
+}
+
+/* ── 技术栈网格 ── */
+.tech-strip{display:flex;flex-wrap:wrap;gap:1rem;margin:0.8rem 0}
+.tech-item{
+  background:#f8f9fa;border:1px solid #e5e7eb;border-radius:8px;
+  padding:0.6rem 1.2rem;text-align:center;flex:1;min-width:100px;
+}
+.tech-item .tname{font-weight:700;color:#1E3A5F;font-size:0.9rem}
+.tech-item .trole{font-size:0.75rem;color:#6b7280}
+</style>
+</head>
+<body>
+
+<!-- ══════ 封面 ══════ -->
+<div class="cover">
+  <div class="badge">🌍 PORTFOLIO</div>
+  <h1>海外GTM工作台</h1>
+  <p class="sub">Overseas GTM Workbench</p>
+  <p class="accent">消费电子出海 · 售前与市场辅助工具</p>
+  <div class="meta">
+    <div>解决方案匹配 · 市场进入策略 · 社媒营销规划</div>
+    <div style="margin-top:1.5rem;font-size:0.95rem;opacity:0.8">
+      Python 3 + Streamlit · Pandas<br>
+      目标市场：北美 · 欧洲 · 东南亚 · 中东
+    </div>
+  </div>
+  <div class="url">https://overseas-gtm-workbench-nj2sch7lmyxlkl4pt5ba8g.streamlit.app/</div>
+</div>
+
+<!-- ══════ 内容 ══════ -->
+<div class="content">
+
+<!-- 项目简介 -->
+<div class="section">
+  <div class="section-label">Overview</div>
+  <h2 class="section-title">项目简介</h2>
+  <p><strong>海外GTM工作台</strong>（Overseas GTM Workbench）是一款面向消费电子（Consumer Electronics）品牌出海的售前与市场辅助工具，覆盖<strong>方案匹配、市场策略、社媒营销</strong>三大核心功能模块。帮助出海团队快速生成方案简报、获取市场策略建议、规划社媒内容营销。</p>
+
+  <div class="info-table" style="margin-top:1rem">
+    <p><span class="label">技术栈</span> Python 3 + Streamlit + Pandas</p>
+    <p><span class="label">目标市场</span> 北美 · 欧洲 · 东南亚 · 中东</p>
+    <p><span class="label">产品数量</span> 12 个消费电子产品，覆盖 7 个品类</p>
+    <p><span class="label">启动方式</span> <code>streamlit run app.py</code>，秒级部署</p>
+    <p><span class="label">在线演示</span> <a href="https://overseas-gtm-workbench-nj2sch7lmyxlkl4pt5ba8g.streamlit.app/" style="color:#1DB954">https://overseas-gtm-workbench-nj2sch7lmyxlkl4pt5ba8g.streamlit.app/</a></p>
+  </div>
+</div>
+
+<!-- 功能概述 -->
+<div class="section page-break">
+  <div class="section-label">Features</div>
+  <h2 class="section-title">功能概述</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>📋 方案匹配</h4>
+      <p>4 维筛选（目标市场 / 使用场景 / 核心诉求 / 预算）+ 标签评分算法，自动推荐 3 款产品组合，生成英文 Solution Brief，支持 Markdown 导出。</p>
+    </div>
+    <div class="feature-card">
+      <h4>📈 市场策略</h4>
+      <p>覆盖北美、欧洲、东南亚、中东四大市场，自动生成市场概况、渠道策略、定价建议、本地化清单，侧边栏切换实时联动。</p>
+    </div>
+    <div class="feature-card">
+      <h4>📱 社媒营销</h4>
+      <p>预热期→发布期→留存期全周期管理，含内容形式矩阵、生产 Checklist、素材库（CSV 导出）、英文帖文生成器（12 种模板）。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 产品目录 -->
+<div class="section page-break">
+  <div class="section-label">Products</div>
+  <h2 class="section-title">产品目录</h2>
+  <p style="margin-bottom:0.8rem">内置 12 款消费电子产品 SKU，覆盖音频、穿戴、充电、配件、平板五大品类。</p>
+
+  <!-- 音频 -->
+  <div class="cat-header">🎧 音频 — TWS 耳机 &amp; 蓝牙音箱</div>
+  <table>
+    <tr><th style="width:22%">产品名</th><th>描述</th><th style="width:28%">适用场景</th><th style="width:10%">价格</th></tr>
+    <tr><td><strong>AeroBuds Pro</strong></td><td>True wireless earbuds with ANC, 36hrs battery</td><td>Commute / Business / Sports</td><td>高端</td></tr>
+    <tr><td><strong>AeroBuds Lite</strong></td><td>Lightweight TWS earbuds, ergonomic fit</td><td>Commute / Sports</td><td>中端</td></tr>
+    <tr><td><strong>PulseMax Speaker</strong></td><td>Waterproof Bluetooth speaker, 20W stereo</td><td>Outdoor / Sports</td><td>中端</td></tr>
+    <tr><td><strong>PulseGo Mini</strong></td><td>Mini portable Bluetooth speaker</td><td>Outdoor / Daily</td><td>入门</td></tr>
+  </table>
+
+  <!-- 穿戴 -->
+  <div class="cat-header">⌚ 穿戴 — 智能手表 &amp; 运动手环</div>
+  <table>
+    <tr><th style="width:22%">产品名</th><th>描述</th><th style="width:28%">适用场景</th><th style="width:10%">价格</th></tr>
+    <tr><td><strong>TitanWatch X</strong></td><td>Smart watch, AMOLED display, 14-day battery</td><td>Business / Sports</td><td>高端</td></tr>
+    <tr><td><strong>TitanWatch Fit</strong></td><td>Fitness tracker with heart rate &amp; SpO2 monitor</td><td>Sports / Daily</td><td>入门</td></tr>
+  </table>
+
+  <!-- 充电 -->
+  <div class="cat-header">🔋 充电 — 充电宝 &amp; GaN 充电器</div>
+  <table>
+    <tr><th style="width:22%">产品名</th><th>描述</th><th style="width:28%">适用场景</th><th style="width:10%">价格</th></tr>
+    <tr><td><strong>PowerCore 20000</strong></td><td>20000mAh power bank, 65W fast charge</td><td>Travel / Business</td><td>中端</td></tr>
+    <tr><td><strong>PowerCore Mini</strong></td><td>10000mAh slim power bank, pocket-sized</td><td>Daily / Commute</td><td>入门</td></tr>
+    <tr><td><strong>NovaCharge GaN</strong></td><td>GaN 65W charger, 3-port</td><td>Business / Travel</td><td>中端</td></tr>
+  </table>
+
+  <!-- 配件 -->
+  <div class="cat-header">🔌 配件 — 线缆</div>
+  <table>
+    <tr><th style="width:22%">产品名</th><th>描述</th><th style="width:28%">适用场景</th><th style="width:10%">价格</th></tr>
+    <tr><td><strong>LuxLink Cable Pro</strong></td><td>Braided fast-charging cable, 1.2m</td><td>Daily / Business</td><td>入门</td></tr>
+  </table>
+
+  <!-- 平板 -->
+  <div class="cat-header">📱 平板</div>
+  <table>
+    <tr><th style="width:22%">产品名</th><th>描述</th><th style="width:28%">适用场景</th><th style="width:10%">价格</th></tr>
+    <tr><td><strong>ViewTab Pro</strong></td><td>11" tablet, 120Hz display</td><td>Business / Entertainment</td><td>高端</td></tr>
+    <tr><td><strong>ViewTab Active</strong></td><td>10" rugged tablet, IP68</td><td>Outdoor / Business</td><td>中端</td></tr>
+  </table>
+</div>
+
+<!-- 技术架构 -->
+<div class="section page-break">
+  <div class="section-label">Technology</div>
+  <h2 class="section-title">技术架构</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>🎨 Streamlit 前端</h4>
+      <p>响应式 Web UI，宽屏布局，自定义 CSS 深蓝主题</p>
+    </div>
+    <div class="feature-card">
+      <h4>🧠 匹配引擎</h4>
+      <p>标签评分算法，场景权重 ×2 + 品类权重 ×1 + 预算优先</p>
+    </div>
+    <div class="feature-card">
+      <h4>📝 方案生成器</h4>
+      <p>模板引擎渲染英文 Solution Brief，支持 Markdown 下载</p>
+    </div>
+    <div class="feature-card">
+      <h4>📦 JSON 数据层</h4>
+      <p>产品数据独立存储，无需数据库，开箱即用</p>
+    </div>
+    <div class="feature-card">
+      <h4>🌐 双语适配</h4>
+      <p>界面中文 + 产品/内容英文，自动映射转换</p>
+    </div>
+    <div class="feature-card">
+      <h4>📥 文件导出</h4>
+      <p>Markdown + CSV 双格式导出，BytesIO 流下载</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.1rem;color:#1E3A5F;margin:1.5rem 0 0.5rem">💡 语言规则</h3>
+  <table>
+    <tr><th style="width:25%">场景</th><th>语言</th><th>示例</th></tr>
+    <tr><td>界面文案（标题、按钮、标签）</td><td><strong>中文</strong></td><td>"目标市场"、"导出方案简报"</td></tr>
+    <tr><td>产品名称和描述</td><td><strong>英文</strong></td><td>"AeroBuds Pro - True wireless earbuds with ANC"</td></tr>
+    <tr><td>方案简报（Solution Brief）</td><td><strong>英文</strong></td><td>可导出的 Markdown 文件</td></tr>
+    <tr><td>社媒帖文草稿</td><td><strong>英文</strong></td><td>12 种帖文模板</td></tr>
+  </table>
+</div>
+
+<!-- 在线演示 -->
+<div class="section page-break" style="text-align:center;padding-top:3rem">
+  <div class="section-label">Live Demo</div>
+  <h2 class="section-title">在线体验</h2>
+  <p style="margin-bottom:2rem">打开下方链接，立即体验海外GTM工作台的全部功能：</p>
+
+  <div style="background:#f8f9fa;border:2px solid #1DB954;border-radius:12px;padding:2rem;display:inline-block;margin:0 auto">
+    <p style="font-size:1.1rem;font-weight:700;color:#1E3A5F;margin-bottom:0.5rem">🌐 公网链接</p>
+    <p style="font-size:1rem;word-break:break-all">
+      <a href="https://overseas-gtm-workbench-nj2sch7lmyxlkl4pt5ba8g.streamlit.app/" style="color:#1DB954;text-decoration:none;font-weight:600">
+        https://overseas-gtm-workbench-nj2sch7lmyxlkl4pt5ba8g.streamlit.app/
+      </a>
+    </p>
+  </div>
+
+  <div style="margin-top:3rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;text-align:center">
+    <div><div style="font-size:2rem;margin-bottom:0.3rem">📦</div><div style="font-weight:700;color:#1E3A5F">12 款产品</div></div>
+    <div><div style="font-size:2rem;margin-bottom:0.3rem">🎯</div><div style="font-weight:700;color:#1E3A5F">7 个品类</div></div>
+    <div><div style="font-size:2rem;margin-bottom:0.3rem">🌏</div><div style="font-weight:700;color:#1E3A5F">4 大市场</div></div>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  <p><strong>海外GTM工作台</strong> · Overseas GTM Workbench</p>
+  <p>消费电子出海售前辅助工具 · Python + Streamlit</p>
+  <p>GitHub: <a href="https://github.com/lune965/overseas-gtm-workbench" style="color:#1DB954">lune965/overseas-gtm-workbench</a></p>
+</div>
+
+</div>
+
+<div class="no-print" style="text-align:center;padding:2rem;margin-top:2rem;background:#f0fdf4;border:1px solid #1DB954;border-radius:12px">
+  <p style="font-size:1rem;font-weight:600;color:#1E3A5F">🖨️ 打印为 PDF</p>
+  <p style="font-size:0.85rem;color:#6b7280">按 <strong>Ctrl + P</strong> → 目标打印机选「另存为 PDF」→ 保存</p>
+</div>
+
+</body>
+</html>
