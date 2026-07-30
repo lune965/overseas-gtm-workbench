@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>海外GTM工作台 · 作品集</title>
+    <meta name="description" content="消费电子出海售前辅助工具 — 产品匹配 · 市场策略 · 社媒营销" />
+    <style>
+        /* ===== Reset & Base ===== */
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:#f8f9fa;color:#1a1a2e;line-height:1.7}
+
+        /* ===== Colors ===== */
+        :root{
+            --primary:#1E3A5F;
+            --primary-light:#2C5282;
+            --accent:#1DB954;
+            --accent-hover:#17a34a;
+            --bg:#f8f9fa;
+            --card:#ffffff;
+            --text:#1a1a2e;
+            --text-light:#6b7280;
+            --border:#e5e7eb;
+            --gradient:linear-gradient(135deg,#1E3A5F 0%,#2C5282 50%,#1DB954 100%);
+        }
+
+        /* ===== Layout ===== */
+        .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+        /* ===== Hero ===== */
+        .hero{
+            background:var(--gradient);color:#fff;padding:5rem 0 4rem;
+            position:relative;overflow:hidden
+        }
+        .hero::after{
+            content:"";position:absolute;top:-50%;right:-20%;width:600px;height:600px;
+            background:rgba(255,255,255,0.03);border-radius:50%
+        }
+        .hero .container{position:relative;z-index:1}
+        .hero .badge{
+            display:inline-block;background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);
+            padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;font-weight:600;
+            letter-spacing:0.5px;margin-bottom:1rem
+        }
+        .hero h1{font-size:3rem;font-weight:800;letter-spacing:-1px;margin-bottom:0.5rem;line-height:1.2}
+        .hero .sub{font-size:1.2rem;opacity:0.9;margin-bottom:2rem;font-weight:400}
+        .hero .tags{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:2rem}
+        .hero .tags span{
+            background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);
+            padding:0.3rem 1rem;border-radius:20px;font-size:0.85rem
+        }
+        .hero-links{display:flex;gap:1rem;flex-wrap:wrap}
+        .btn{
+            display:inline-flex;align-items:center;gap:0.5rem;
+            padding:0.7rem 1.8rem;border-radius:12px;font-weight:600;
+            font-size:0.95rem;text-decoration:none;transition:all 0.2s
+        }
+        .btn-primary{background:#fff;color:var(--primary)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+        .btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4)}
+        .btn-outline:hover{background:rgba(255,255,255,0.1);border-color:#fff;transform:translateY(-2px)}
+        .btn-accent{background:var(--accent);color:#fff}
+        .btn-accent:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(29,185,84,0.3)}
+
+        /* ===== Sections ===== */
+        section{padding:4rem 0}
+        section:nth-child(even){background:#fff}
+        .section-label{
+            display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:2px;
+            text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem
+        }
+        .section-title{font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:1rem}
+        .section-desc{color:var(--text-light);font-size:1.05rem;max-width:700px;margin-bottom:2.5rem}
+
+        /* ===== Overview Cards ===== */
+        .overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+        .stat-card{
+            background:var(--card);border-radius:16px;padding:2rem;
+            border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s
+        }
+        .stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
+        .stat-card .icon{font-size:2rem;margin-bottom:0.8rem}
+        .stat-card .num{font-size:2.2rem;font-weight:800;color:var(--primary);line-height:1.2}
+        .stat-card .label{color:var(--text-light);font-size:0.9rem;margin-top:0.3rem}
+
+        /* ===== Feature Tabs ===== */
+        .feature-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+        .feature-tab{
+            padding:0.7rem 1.5rem;border-radius:10px;border:1px solid var(--border);
+            background:var(--card);font-weight:600;font-size:0.9rem;cursor:pointer;
+            transition:all 0.2s;color:var(--text-light)
+        }
+        .feature-tab:hover,.feature-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+        .feature-panel{display:none}
+        .feature-panel.active{display:block;animation:fadeIn 0.3s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+        .feature-content{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+        @media(max-width:768px){.feature-content{grid-template-columns:1fr}}
+        .feature-text h3{font-size:1.4rem;font-weight:700;color:var(--primary);margin-bottom:0.8rem}
+        .feature-text ul{list-style:none;padding:0}
+        .feature-text ul li{padding:0.4rem 0;padding-left:1.5rem;position:relative;color:var(--text-light)}
+        .feature-text ul li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+        .feature-visual{
+            background:#f3f4f6;border-radius:16px;padding:1.5rem;
+            border:1px solid var(--border);min-height:280px
+        }
+        .feature-visual img{width:100%;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+
+        /* ===== Mockup Screenshot ===== */
+        .mockup-card{
+            background:var(--card);border-radius:16px;overflow:hidden;
+            border:1px solid var(--border);box-shadow:0 8px 30px rgba(0,0,0,0.06)
+        }
+        .mockup-card .mockup-header{
+            background:var(--primary);color:#fff;padding:0.8rem 1.5rem;
+            display:flex;align-items:center;gap:0.5rem;font-weight:600
+        }
+        .mockup-card .mockup-header .dots{display:flex;gap:6px}
+        .mockup-card .mockup-header .dots span{
+            width:10px;height:10px;border-radius:50%;
+            background:rgba(255,255,255,0.3)
+        }
+        .mockup-card .mockup-body{
+            display:grid;grid-template-columns:280px 1fr;min-height:360px
+        }
+        @media(max-width:768px){.mockup-card .mockup-body{grid-template-columns:1fr}}
+        .mockup-sidebar{
+            background:#f8f9fa;padding:1.2rem;border-right:1px solid var(--border)
+        }
+        .mockup-sidebar .mock-label{
+            font-size:0.7rem;font-weight:700;color:var(--text-light);text-transform:uppercase;
+            letter-spacing:0.5px;margin-bottom:0.5rem
+        }
+        .mockup-sidebar .mock-field{
+            background:#fff;border:1px solid var(--border);border-radius:8px;
+            padding:0.5rem 0.8rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--text)
+        }
+        .mockup-main{padding:1.2rem}
+        .mockup-main .mock-tabs{
+            display:flex;gap:0.3rem;margin-bottom:1rem
+        }
+        .mockup-main .mock-tabs .mtab{
+            padding:0.4rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:500;
+            background:#f3f4f6;color:var(--text-light)
+        }
+        .mockup-main .mock-tabs .mtab.active{background:var(--accent);color:#fff}
+        .mockup-main .mock-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:1rem}
+        .mockup-main .mock-card-item{
+            background:#f3f4f6;border-radius:10px;padding:1rem;border-left:3px solid var(--accent)
+        }
+        .mockup-main .mock-card-item .mname{font-weight:700;font-size:0.85rem;color:var(--primary)}
+        .mockup-main .mock-card-item .mdesc{font-size:0.7rem;color:var(--text-light);margin-top:0.2rem}
+
+        /* ===== Architecture ===== */
+        .arch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+        .arch-card{
+            background:var(--card);border-radius:14px;padding:1.8rem;
+            border:1px solid var(--border);text-align:center;transition:transform 0.2s
+        }
+        .arch-card:hover{transform:translateY(-3px)}
+        .arch-card .arch-icon{font-size:2.2rem;margin-bottom:0.8rem}
+        .arch-card h4{font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:0.3rem}
+        .arch-card p{font-size:0.85rem;color:var(--text-light)}
+
+        /* ===== Products Grid ===== */
+        .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+        .product-item{
+            background:var(--card);border-radius:12px;padding:1.3rem;
+            border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s
+        }
+        .product-item:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+        .product-item .pcat{
+            font-size:0.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;
+            letter-spacing:0.5px;margin-bottom:0.3rem
+        }
+        .product-item .pname{font-weight:700;font-size:1.05rem;color:var(--primary);margin-bottom:0.3rem}
+        .product-item .pdesc{font-size:0.85rem;color:var(--text-light);margin-bottom:0.5rem}
+        .product-item .ptags{display:flex;flex-wrap:wrap;gap:0.3rem}
+        .product-item .ptag{
+            font-size:0.65rem;background:#e5e7eb;color:var(--text-light);
+            padding:0.15rem 0.5rem;border-radius:12px
+        }
+        .product-item .pcat-icon{font-size:1.3rem;margin-bottom:0.4rem}
+
+        /* ===== Flow Diagram ===== */
+        .flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.5rem;padding:1rem 0}
+        .flow-step{
+            background:var(--card);border:1px solid var(--border);border-radius:12px;
+            padding:1rem 1.5rem;text-align:center;min-width:120px
+        }
+        .flow-step .fnum{
+            font-size:0.7rem;font-weight:700;color:var(--accent);margin-bottom:0.2rem
+        }
+        .flow-step .flabel{font-size:0.85rem;color:var(--text);font-weight:500}
+        .flow-arrow{font-size:1.5rem;color:var(--text-light)}
+        @media(max-width:600px){.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+
+        /* ===== Tech Stack ===== */
+        .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.2rem}
+        .tech-item{
+            background:var(--card);border-radius:12px;padding:1.5rem;text-align:center;
+            border:1px solid var(--border);transition:transform 0.2s
+        }
+        .tech-item:hover{transform:translateY(-2px)}
+        .tech-item .tname{font-weight:700;font-size:1rem;color:var(--primary)}
+        .tech-item .trole{font-size:0.8rem;color:var(--text-light);margin-top:0.2rem}
+
+        /* ===== Footer ===== */
+        footer{
+            background:var(--primary);color:rgba(255,255,255,0.7);padding:2.5rem 0;text-align:center
+        }
+        footer a{color:#fff;text-decoration:underline}
+
+        /* ===== Responsive ===== */
+        @media(max-width:768px){
+            .hero h1{font-size:2rem}
+            .container{padding:0 1.2rem}
+            section{padding:3rem 0}
+            .section-title{font-size:1.5rem}
+            .mockup-main .mock-cards{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+    <div class="container">
+        <div class="badge">🌍 作品集 · Portfolio</div>
+        <h1>海外GTM工作台</h1>
+        <p class="sub">Overseas GTM Workbench · 消费电子出海售前辅助工具</p>
+        <div class="tags">
+            <span>🐍 Python 3</span>
+            <span>⚡ Streamlit</span>
+            <span>📊 Pandas</span>
+            <span>🌏 4 大海外市场</span>
+            <span>📦 12 款产品</span>
+            <span>🤖 智能匹配引擎</span>
+        </div>
+        <div class="hero-links">
+            <a href="http://localhost:8502" target="_blank" class="btn btn-primary">🚀 打开在线演示</a>
+            <a href="#features" class="btn btn-outline">📖 查看功能</a>
+            <a href="#architecture" class="btn btn-outline">🏗️ 架构说明</a>
+        </div>
+    </div>
+</header>
+
+<!-- ============ OVERVIEW ============ -->
+<section>
+    <div class="container">
+        <div class="section-label">Overview</div>
+        <h2 class="section-title">项目概览</h2>
+        <p class="section-desc">
+            面向消费电子（Consumer Electronics）出海的售前与市场辅助工具，帮助出海团队
+            快速生成方案简报、获取市场策略建议、规划社媒内容营销。覆盖
+            <strong>方案匹配</strong>、<strong>市场策略</strong>、<strong>社媒营销</strong>三大核心模块。
+        </p>
+        <div class="overview-grid">
+            <div class="stat-card">
+                <div class="icon">📋</div>
+                <div class="num">3</div>
+                <div class="label">核心功能模块</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📦</div>
+                <div class="num">12</div>
+                <div class="label">内置产品 SKU</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">🌏</div>
+                <div class="num">4</div>
+                <div class="label">目标海外市场</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">⚡</div>
+                <div class="num">1</div>
+                <div class="label">命令启动 · 秒级部署</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" style="background:#fff">
+    <div class="container">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">功能详解</h2>
+        <p class="section-desc">三大 Tab 覆盖售前全流程：从产品匹配到市场策略，再到社媒内容规划。</p>
+
+        <!-- Tab Navigation -->
+        <div class="feature-tabs">
+            <div class="feature-tab active" onclick="switchTab(this,'tab1')">📋 方案匹配</div>
+            <div class="feature-tab" onclick="switchTab(this,'tab2')">📊 市场策略</div>
+            <div class="feature-tab" onclick="switchTab(this,'tab3')">📱 社媒营销</div>
+        </div>
+
+        <!-- Tab 1 -->
+        <div id="tab1" class="feature-panel active">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h3>智能方案匹配引擎</h3>
+                    <p style="color:var(--text-light);margin-bottom:1rem">
+                        根据目标市场、使用场景、核心诉求和预算范围，从产品库中智能匹配合适的产品组合。
+                    </p>
+                    <ul>
+                        <li><strong>4 维筛选</strong> — 市场 / 场景 / 诉求 / 预算，精确定位需求</li>
+                        <li><strong>标签评分算法</strong> — 多因素加权排序，精准推荐 Top 3</li>
+                        <li><strong>产品卡片展示</strong> — 产品名（加粗）+ 英文描述 + 场景标签 + 价格档位</li>
+                        <li><strong>英文方案简报</strong> — 自动生成专业的 Solution Brief（Markdown）</li>
+                        <li><strong>一键导出</strong> — 下载 .md 文件，可直接用于客户提案</li>
+                        <li><strong>兜底策略</strong> — 匹配不足时自动从相邻品类补充，确保始终有推荐</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <div style="text-align:center;padding:1rem 0">
+                        <div style="font-size:3rem;margin-bottom:1rem">🎯</div>
+                        <h4 style="color:var(--primary);margin-bottom:0.5rem">匹配引擎流程图</h4>
+                        <div class="flow" style="padding:0.5rem 0">
+                            <div class="flow-step" style="min-width:90px;padding:0.7rem 1rem"><div class="fnum">INPUT</div><div class="flabel">用户筛选</div></div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step" style="min-width:90px;padding:0.7rem 1rem"><div class="fnum">SCORE</div><div class="flabel">标签评分</div></div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step" style="min-width:90px;padding:0.7rem 1rem"><div class="fnum">RANK</div><div class="flabel">降序排列</div></div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step" style="min-width:90px;padding:0.7rem 1rem"><div class="fnum">OUTPUT</div><div class="flabel">Top 3 推荐</div></div>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--text-light);margin-top:1rem">
+                            场景匹配（权重 2）+ 品类匹配（权重 1）+ 预算过滤
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div id="tab2" class="feature-panel">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h3>市场进入策略</h3>
+                    <p style="color:var(--text-light);margin-bottom:1rem">
+                        针对不同海外市场，自动生成专业的市场分析报告和策略建议。
+                    </p>
+                    <ul>
+                        <li><strong>市场概况</strong> — 各市场规模、增长趋势、竞争格局分析</li>
+                        <li><strong>渠道策略</strong> — 线上（Shopee/Amazon/Noon）vs 线下推荐配比</li>
+                        <li><strong>定价建议</strong> — 按市场购买力和预算档位细分定价</li>
+                        <li><strong>本地化清单</strong> — 认证要求、文化习惯、支付方式等注意事项</li>
+                        <li><strong>5 大市场覆盖</strong> — 北美 / 欧洲 / 东南亚 / 中东 / （框架预留拉美）</li>
+                        <li><strong>实时联动</strong> — 切换侧边栏条件，策略内容自动更新</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <div style="text-align:center;padding:2rem 0">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;max-width:320px;margin:0 auto">
+                            <div style="background:#f0f4f8;border-radius:10px;padding:1rem">
+                                <div style="font-size:2rem">📊</div>
+                                <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin-top:0.3rem">市场概况</div>
+                            </div>
+                            <div style="background:#f0f4f8;border-radius:10px;padding:1rem">
+                                <div style="font-size:2rem">📡</div>
+                                <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin-top:0.3rem">渠道策略</div>
+                            </div>
+                            <div style="background:#f0f4f8;border-radius:10px;padding:1rem">
+                                <div style="font-size:2rem">💰</div>
+                                <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin-top:0.3rem">定价建议</div>
+                            </div>
+                            <div style="background:#f0f4f8;border-radius:10px;padding:1rem">
+                                <div style="font-size:2rem">🌐</div>
+                                <div style="font-size:0.8rem;font-weight:600;color:var(--primary);margin-top:0.3rem">本地化清单</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div id="tab3" class="feature-panel">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h3>社媒营销工作台</h3>
+                    <p style="color:var(--text-light);margin-bottom:1rem">
+                        覆盖产品发布全周期的社媒内容规划和英文帖文生成。
+                    </p>
+                    <ul>
+                        <li><strong>阶段管理</strong> — 预热期 / 发布期 / 留存期，分阶段运营策略</li>
+                        <li><strong>内容形式矩阵</strong> — 每个阶段推荐 4-5 种内容形式，含平台/篇幅/频率</li>
+                        <li><strong>Checklist</strong> — 阶段联动待办清单，勾选状态独立保存</li>
+                        <li><strong>内容素材库</strong> — 6 条示例数据，支持导出为 CSV</li>
+                        <li><strong>英文帖文生成器</strong> — 3 阶段 × 4 类型 = 12 种帖文模板</li>
+                        <li><strong>帖文可编辑</strong> — text_area 展示，支持直接修改后再导出</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <div style="text-align:center;padding:1.5rem 0">
+                        <div style="font-size:2.5rem;margin-bottom:0.8rem">📱</div>
+                        <div style="display:flex;gap:0.4rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem">
+                            <span style="background:var(--accent);color:#fff;padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem;font-weight:600">预热期</span>
+                            <span style="background:#f3f4f6;color:var(--text-light);padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem">发布期</span>
+                            <span style="background:#f3f4f6;color:var(--text-light);padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem">留存期</span>
+                        </div>
+                        <div style="background:#f0f4f8;border-radius:12px;padding:1rem;max-width:400px;margin:0 auto;text-align:left">
+                            <div style="font-size:0.8rem;color:var(--primary);font-weight:700;margin-bottom:0.5rem">✍️ 英文帖文生成示例</div>
+                            <div style="background:#fff;border-radius:8px;padding:0.8rem;border:1px solid var(--border);font-size:0.8rem;color:var(--text-light);white-space:pre-line;line-height:1.5">
+⚡ Something big is coming to Southeast Asia.
+
+We've been in the lab engineering something that's going to change the way you experience everyday tech. Lighter. Faster. Smarter.
+
+#ComingSoon #ConsumerTech
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side-by-side Mockup -->
+        <div style="margin-top:3rem">
+            <h3 style="font-size:1.3rem;font-weight:700;color:var(--primary);margin-bottom:1rem">🖥️ 界面布局预览</h3>
+            <div class="mockup-card">
+                <div class="mockup-header">
+                    <div class="dots"><span></span><span></span><span></span></div>
+                    🌍 海外GTM工作台 — 消费电子出海售前辅助工具
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-sidebar">
+                        <div class="mock-label">🔍 筛选条件</div>
+                        <div class="mock-field">🌏 目标市场：东南亚</div>
+                        <div class="mock-field">🎯 使用场景：日常通勤</div>
+                        <div class="mock-field">⭐ 核心诉求：续航能力</div>
+                        <div class="mock-field">💰 预算范围：中端</div>
+                        <div style="font-size:0.7rem;color:var(--text-light);margin-top:0.8rem">💡 调整条件自动更新</div>
+                    </div>
+                    <div class="mockup-main">
+                        <div class="mock-tabs">
+                            <div class="mtab active">📋 产品匹配</div>
+                            <div class="mtab">📈 市场策略</div>
+                            <div class="mtab">📱 社媒营销</div>
+                        </div>
+                        <div style="font-size:0.85rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem">📦 推荐产品组合</div>
+                        <div class="mock-cards">
+                            <div class="mock-card-item">
+                                <div class="mname">PowerCore 20000</div>
+                                <div class="mdesc">20000mAh power bank, 65W fast charge</div>
+                                <div style="font-size:0.65rem;color:var(--accent);margin-top:0.2rem;font-weight:600">中端 · 充电</div>
+                            </div>
+                            <div class="mock-card-item">
+                                <div class="mname">NovaCharge GaN</div>
+                                <div class="mdesc">GaN 65W charger, 3-port</div>
+                                <div style="font-size:0.65rem;color:var(--accent);margin-top:0.2rem;font-weight:600">中端 · 充电</div>
+                            </div>
+                            <div class="mock-card-item">
+                                <div class="mname">PowerCore Mini</div>
+                                <div class="mdesc">10000mAh slim power bank</div>
+                                <div style="font-size:0.65rem;color:var(--accent);margin-top:0.2rem;font-weight:600">入门 · 充电</div>
+                            </div>
+                        </div>
+                        <div style="font-size:0.85rem;font-weight:700;color:var(--primary);margin-bottom:0.3rem">📝 方案简述</div>
+                        <div style="background:#f3f4f6;border-radius:8px;padding:0.8rem;font-size:0.7rem;color:var(--text-light);max-height:100px;overflow:hidden">
+                            ## Solution Brief
+                            Target Market: Southeast Asia<br>
+                            Use Scenario: Daily Commute<br>
+                            Core Requirement: Battery Life
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PRODUCT CATALOG ============ -->
+<section>
+    <div class="container">
+        <div class="section-label">Products</div>
+        <h2 class="section-title">内置产品目录</h2>
+        <p class="section-desc">覆盖 8 个消费电子产品品类，共 12 个虚拟产品 SKU，全部硬编码于 products.json。</p>
+
+        <!-- Audio -->
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2rem 0 1rem">🎧 音频</h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="pcat-icon">🎧</div>
+                <div class="pcat">TWS Earbuds · 高端</div>
+                <div class="pname">AeroBuds Pro</div>
+                <div class="pdesc">True wireless earbuds with ANC, 36hrs battery</div>
+                <div class="ptags"><span class="ptag">Commute</span><span class="ptag">Business</span><span class="ptag">Sports</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">🎧</div>
+                <div class="pcat">TWS Earbuds · 中端</div>
+                <div class="pname">AeroBuds Lite</div>
+                <div class="pdesc">Lightweight TWS earbuds, ergonomic fit</div>
+                <div class="ptags"><span class="ptag">Commute</span><span class="ptag">Sports</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">🔊</div>
+                <div class="pcat">Bluetooth Speaker · 中端</div>
+                <div class="pname">PulseMax Speaker</div>
+                <div class="pdesc">Waterproof Bluetooth speaker, 20W stereo</div>
+                <div class="ptags"><span class="ptag">Outdoor</span><span class="ptag">Sports</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">🔊</div>
+                <div class="pcat">Bluetooth Speaker · 入门</div>
+                <div class="pname">PulseGo Mini</div>
+                <div class="pdesc">Mini portable Bluetooth speaker</div>
+                <div class="ptags"><span class="ptag">Outdoor</span><span class="ptag">Daily</span></div>
+            </div>
+        </div>
+
+        <!-- Wearable -->
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2rem 0 1rem">⌚ 穿戴</h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="pcat-icon">⌚</div>
+                <div class="pcat">Smart Watch · 高端</div>
+                <div class="pname">TitanWatch X</div>
+                <div class="pdesc">Smart watch, AMOLED display, 14-day battery</div>
+                <div class="ptags"><span class="ptag">Business</span><span class="ptag">Sports</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">⌚</div>
+                <div class="pcat">Fitness Tracker · 入门</div>
+                <div class="pname">TitanWatch Fit</div>
+                <div class="pdesc">Fitness tracker with heart rate & SpO2 monitor</div>
+                <div class="ptags"><span class="ptag">Sports</span><span class="ptag">Daily</span></div>
+            </div>
+        </div>
+
+        <!-- Charging -->
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2rem 0 1rem">🔋 充电</h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="pcat-icon">🔋</div>
+                <div class="pcat">Power Bank · 中端</div>
+                <div class="pname">PowerCore 20000</div>
+                <div class="pdesc">20000mAh power bank, 65W fast charge</div>
+                <div class="ptags"><span class="ptag">Travel</span><span class="ptag">Business</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">🔋</div>
+                <div class="pcat">Power Bank · 入门</div>
+                <div class="pname">PowerCore Mini</div>
+                <div class="pdesc">10000mAh slim power bank, pocket-sized</div>
+                <div class="ptags"><span class="ptag">Daily</span><span class="ptag">Commute</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">⚡</div>
+                <div class="pcat">GaN Charger · 中端</div>
+                <div class="pname">NovaCharge GaN</div>
+                <div class="pdesc">GaN 65W charger, 3-port</div>
+                <div class="ptags"><span class="ptag">Business</span><span class="ptag">Travel</span></div>
+            </div>
+        </div>
+
+        <!-- Accessories & Tablet -->
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2rem 0 1rem">🔌 配件 · 平板</h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="pcat-icon">🔌</div>
+                <div class="pcat">Cables · 入门</div>
+                <div class="pname">LuxLink Cable Pro</div>
+                <div class="pdesc">Braided fast-charging cable, 1.2m</div>
+                <div class="ptags"><span class="ptag">Daily</span><span class="ptag">Business</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">📱</div>
+                <div class="pcat">Tablet · 高端</div>
+                <div class="pname">ViewTab Pro</div>
+                <div class="pdesc">11" tablet, 120Hz display</div>
+                <div class="ptags"><span class="ptag">Business</span><span class="ptag">Entertainment</span></div>
+            </div>
+            <div class="product-item">
+                <div class="pcat-icon">📱</div>
+                <div class="pcat">Tablet · 中端</div>
+                <div class="pname">ViewTab Active</div>
+                <div class="pdesc">10" rugged tablet, IP68</div>
+                <div class="ptags"><span class="ptag">Outdoor</span><span class="ptag">Business</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="architecture" style="background:#fff">
+    <div class="container">
+        <div class="section-label">Architecture</div>
+        <h2 class="section-title">技术架构</h2>
+        <p class="section-desc">单文件应用架构，核心引擎分离设计，便于维护和扩展。</p>
+
+        <div class="arch-grid">
+            <div class="arch-card">
+                <div class="arch-icon">🎨</div>
+                <h4>Streamlit 前端</h4>
+                <p>响应式 Web UI，宽屏布局，自定义 CSS 主题</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">🧠</div>
+                <h4>匹配引擎</h4>
+                <p>标签评分算法，多因素加权排序 + 兜底策略</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">📝</div>
+                <h4>方案生成器</h4>
+                <p>模板引擎自动渲染英文 Solution Brief</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">📦</div>
+                <h4>JSON 数据层</h4>
+                <p>产品数据独立存储，无需数据库，开箱即用</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">🌐</div>
+                <h4>双语适配</h4>
+                <p>界面中文，内容英文，自动映射转换</p>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon">📥</div>
+                <h4>文件导出</h4>
+                <p>Markdown + CSV 双格式导出，BytesIO 流下载</p>
+            </div>
+        </div>
+
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2rem 0 1rem">📂 项目结构</h3>
+        <pre style="background:#f3f4f6;border-radius:12px;padding:1.5rem;font-size:0.85rem;overflow-x:auto;color:var(--text-light);line-height:1.8">
+smart-home-presales-tool/
+├── app.py                      # 主入口 — Streamlit Web 应用（~735 行）
+├── requirements.txt            # Python 依赖清单
+├── README.md                   # 项目说明文档
+├── .gitignore                  # Git 忽略规则
+├── data/
+│   └── products.json           # 内置产品目录（12 个消费电子产品）
+├── engine/                     # 核心业务逻辑
+│   ├── __init__.py
+│   ├── matcher.py              # 标签评分匹配引擎
+│   └── generator.py            # 方案简述生成器 + Markdown 导出
+└── docs/
+    ├── requirements.md         # 需求文档
+    └── development-plan.md     # 开发计划</pre>
+    </div>
+</section>
+
+<!-- ============ TECH STACK ============ -->
+<section>
+    <div class="container">
+        <div class="section-label">Tech Stack</div>
+        <h2 class="section-title">技术栈</h2>
+        <p class="section-desc">轻量级技术栈，零外部依赖数据库，一键启动。</p>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div style="font-size:2rem;margin-bottom:0.5rem">🐍</div>
+                <div class="tname">Python 3</div>
+                <div class="trole">核心开发语言</div>
+            </div>
+            <div class="tech-item">
+                <div style="font-size:2rem;margin-bottom:0.5rem">⚡</div>
+                <div class="tname">Streamlit</div>
+                <div class="trole">Web 应用框架</div>
+            </div>
+            <div class="tech-item">
+                <div style="font-size:2rem;margin-bottom:0.5rem">📊</div>
+                <div class="tname">Pandas</div>
+                <div class="trole">数据处理</div>
+            </div>
+            <div class="tech-item">
+                <div style="font-size:2rem;margin-bottom:0.5rem">📄</div>
+                <div class="tname">JSON</div>
+                <div class="trole">数据存储</div>
+            </div>
+            <div class="tech-item">
+                <div style="font-size:2rem;margin-bottom:0.5rem">🎨</div>
+                <div class="tname">CSS3</div>
+                <div class="trole">自定义主题</div>
+            </div>
+        </div>
+
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary);margin:2.5rem 0 1rem">💡 语言规则</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+            <div style="background:#f3f4f6;border-radius:10px;padding:1.2rem;border-left:3px solid var(--accent)">
+                <div style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:0.3rem">🇨🇳 界面文案</div>
+                <div style="font-size:0.85rem;color:var(--text-light)">标题、按钮、标签、提示 → 中文</div>
+            </div>
+            <div style="background:#f3f4f6;border-radius:10px;padding:1.2rem;border-left:3px solid var(--accent)">
+                <div style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:0.3rem">🇬🇧 产品数据</div>
+                <div style="font-size:0.85rem;color:var(--text-light)">产品名、描述 → 英文</div>
+            </div>
+            <div style="background:#f3f4f6;border-radius:10px;padding:1.2rem;border-left:3px solid var(--accent)">
+                <div style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:0.3rem">🇬🇧 方案简报</div>
+                <div style="font-size:0.85rem;color:var(--text-light)">Solution Brief → 英文（可导出）</div>
+            </div>
+            <div style="background:#f3f4f6;border-radius:10px;padding:1.2rem;border-left:3px solid var(--accent)">
+                <div style="font-weight:700;font-size:0.9rem;color:var(--primary);margin-bottom:0.3rem">🇬🇧 社媒帖文</div>
+                <div style="font-size:0.85rem;color:var(--text-light)">帖文草稿 → 英文</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ STARTUP ============ -->
+<section style="background:#fff">
+    <div class="container" style="text-align:center">
+        <div class="section-label">Getting Started</div>
+        <h2 class="section-title">快速启动</h2>
+        <p class="section-desc" style="margin:0 auto 2rem">两步操作，立即运行。</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:800px;margin:0 auto;text-align:left">
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+                <div style="font-size:0.7rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem">STEP 1</div>
+                <div style="font-weight:700;color:var(--primary);margin-bottom:0.5rem">📦 安装依赖</div>
+                <pre style="background:#f3f4f6;border-radius:8px;padding:0.8rem;font-size:0.85rem">pip install -r requirements.txt</pre>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem">
+                <div style="font-size:0.7rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem">STEP 2</div>
+                <div style="font-weight:700;color:var(--primary);margin-bottom:0.5rem">🚀 启动应用</div>
+                <pre style="background:#f3f4f6;border-radius:8px;padding:0.8rem;font-size:0.85rem">streamlit run app.py</pre>
+            </div>
+        </div>
+        <p style="color:var(--text-light);margin-top:1.5rem;font-size:0.9rem">
+            启动后浏览器自动打开 <a href="http://localhost:8502" style="color:var(--accent)">http://localhost:8502</a>
+        </p>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+    <div class="container">
+        <p style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem">🌍 海外GTM工作台</p>
+        <p style="font-size:0.9rem;margin-bottom:1rem">Overseas GTM Workbench · 消费电子出海售前辅助工具</p>
+        <p style="font-size:0.8rem;opacity:0.6">
+            Built with Python & Streamlit · 作品集展示
+        </p>
+    </div>
+</footer>
+
+<script>
+function switchTab(el,id){
+    document.querySelectorAll('.feature-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.feature-panel').forEach(p=>p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>

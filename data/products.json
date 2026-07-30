@@ -1,0 +1,146 @@
+[
+  {
+    "id": "tws-001",
+    "category": "TWS Earbuds",
+    "name": "SoundPulse Pro",
+    "description": "Hi-Res wireless earbuds with adaptive ANC, 30h total playtime, and aptX HD audio for immersive sound.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia", "middle_east"],
+      "use_scenarios": ["daily_commute", "business_office", "travel"],
+      "use_cases": ["audio_quality", "smart_connectivity", "portable_design"],
+      "budgets": ["medium", "high"]
+    }
+  },
+  {
+    "id": "tws-002",
+    "category": "TWS Earbuds",
+    "name": "AirBuds Lite",
+    "description": "Ultra-light earbuds with IPX5 sweat resistance, touch controls, and 20h battery for active lifestyles.",
+    "tags": {
+      "markets": ["north_america", "southeast_asia", "europe"],
+      "use_scenarios": ["outdoor_sports", "daily_commute"],
+      "use_cases": ["portable_design", "sports_fitness"],
+      "budgets": ["low", "medium"]
+    }
+  },
+  {
+    "id": "watch-001",
+    "category": "Smart Watch",
+    "name": "WatchUltra X",
+    "description": "Premium GPS sports watch with 1.5\" AMOLED display, 14-day battery, and advanced health monitoring suite.",
+    "tags": {
+      "markets": ["north_america", "europe", "middle_east"],
+      "use_scenarios": ["outdoor_sports", "business_office", "travel"],
+      "use_cases": ["sports_fitness", "battery_life", "smart_connectivity"],
+      "budgets": ["high"]
+    }
+  },
+  {
+    "id": "watch-002",
+    "category": "Smart Watch",
+    "name": "FitView S1",
+    "description": "Stylish hybrid smartwatch with always-on display, SpO2 tracking, and 7-day battery for everyday wear.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia"],
+      "use_scenarios": ["business_office", "daily_commute"],
+      "use_cases": ["sports_fitness", "portable_design"],
+      "budgets": ["low", "medium"]
+    }
+  },
+  {
+    "id": "powerbank-001",
+    "category": "Power Bank",
+    "name": "PowerCore 20000",
+    "description": "20000mAh PD 65W dual USB-C power bank with digital display, fast charging for laptops and phones.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia", "middle_east"],
+      "use_scenarios": ["travel", "outdoor_sports", "daily_commute"],
+      "use_cases": ["battery_life", "fast_charging", "portable_design"],
+      "budgets": ["medium"]
+    }
+  },
+  {
+    "id": "speaker-001",
+    "category": "Bluetooth Speaker",
+    "name": "BoomBox Mini",
+    "description": "IPX7 waterproof portable speaker with 24h playtime, 360° surround sound, and TWS pairing mode.",
+    "tags": {
+      "markets": ["north_america", "southeast_asia", "europe"],
+      "use_scenarios": ["outdoor_sports", "travel"],
+      "use_cases": ["audio_quality", "portable_design", "battery_life"],
+      "budgets": ["low", "medium"]
+    }
+  },
+  {
+    "id": "speaker-002",
+    "category": "Bluetooth Speaker",
+    "name": "SoundStone",
+    "description": "Desktop Bluetooth speaker with ambient RGB lighting, 30W stereo sound, and AUX/USB input.",
+    "tags": {
+      "markets": ["north_america", "europe"],
+      "use_scenarios": ["business_office", "gaming_entertainment"],
+      "use_cases": ["audio_quality", "smart_connectivity"],
+      "budgets": ["medium", "high"]
+    }
+  },
+  {
+    "id": "gan-001",
+    "category": "GaN Charger",
+    "name": "GaNCharge 65W",
+    "description": "Compact 65W dual USB-C GaN charger with foldable plug, universal compatibility, and intelligent power distribution.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia", "middle_east"],
+      "use_scenarios": ["travel", "business_office", "daily_commute"],
+      "use_cases": ["fast_charging", "portable_design"],
+      "budgets": ["medium"]
+    }
+  },
+  {
+    "id": "gan-002",
+    "category": "GaN Charger",
+    "name": "ChargeHub 100W",
+    "description": "100W 4-port GaN desktop charger with PD 3.0 and QC 4+ support, charges 4 devices simultaneously.",
+    "tags": {
+      "markets": ["north_america", "europe"],
+      "use_scenarios": ["business_office", "gaming_entertainment"],
+      "use_cases": ["fast_charging", "smart_connectivity"],
+      "budgets": ["high"]
+    }
+  },
+  {
+    "id": "cable-001",
+    "category": "Cables & Accessories",
+    "name": "FlexLink Pro",
+    "description": "Braided USB-C to USB-C cable, 1.5m length, supports 100W PD fast charging with aluminum shell.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia", "middle_east"],
+      "use_scenarios": ["outdoor_sports", "business_office", "daily_commute", "travel", "gaming_entertainment"],
+      "use_cases": ["fast_charging", "portable_design"],
+      "budgets": ["low", "medium"]
+    }
+  },
+  {
+    "id": "fitness-001",
+    "category": "Fitness Tracker",
+    "name": "FitBand Pro",
+    "description": "Waterproof fitness tracker with 1.47\" AMOLED, continuous heart rate, SpO2, sleep tracking, and 10-day battery.",
+    "tags": {
+      "markets": ["north_america", "europe", "southeast_asia"],
+      "use_scenarios": ["outdoor_sports", "daily_commute"],
+      "use_cases": ["sports_fitness", "battery_life", "portable_design"],
+      "budgets": ["low"]
+    }
+  },
+  {
+    "id": "tablet-001",
+    "category": "Tablet Accessories",
+    "name": "FolioTouch",
+    "description": "Keyboard case for iPad with backlit keys, multi-touch trackpad, pencil holder, and adjustable viewing angles.",
+    "tags": {
+      "markets": ["north_america", "europe"],
+      "use_scenarios": ["business_office", "gaming_entertainment", "travel"],
+      "use_cases": ["business_compatibility", "portable_design"],
+      "budgets": ["medium", "high"]
+    }
+  }
+]
