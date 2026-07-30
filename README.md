@@ -87,7 +87,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-启动后浏览器会自动打开 `http://localhost:8501`（或自定义端口）。
+启动后浏览器会自动打开 `http://localhost:8502`（可通过 `--server.port` 自定义端口）。
 
 ### 自定义端口
 
@@ -299,7 +299,7 @@ overseas-gtm-workbench/
 
 ### Q: 启动后浏览器没有自动打开？
 
-在终端中手动访问：`http://localhost:8501`
+在终端中手动访问：`http://localhost:8502`
 
 ### Q: 如何添加更多产品？
 
