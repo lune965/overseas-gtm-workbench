@@ -259,12 +259,12 @@ with st.sidebar:
     st.markdown("---")
     product_category = st.selectbox(
         "产品品类",
-        options=["TWS 耳机", "智能手表", "充电宝",
+        options=["全部品类", "TWS 耳机", "智能手表", "充电宝",
                  "蓝牙音箱", "GaN 充电器",
                  "线缆与配件", "运动手环",
                  "平板配件"],
         index=0,
-        help="用于市场策略与社媒营销 Tab。",
+        help="联动所有 Tab：方案匹配（仅推荐该品类）、市场策略（渠道/定价）、社媒营销（帖文角度）。",
     )
     st.markdown("---")
     st.caption("调整上方筛选条件 — 所有内容将实时刷新。")
@@ -410,19 +410,19 @@ def _market_strategy(market: str, cat: str) -> dict:
         ],
     }
 
-    # 品类名映射（中文 → 内部 key）
-    cat_map = {
-        "TWS 耳机": "TWS Earbuds",
-        "智能手表": "Smart Watch",
-        "充电宝": "Power Bank",
-        "蓝牙音箱": "Bluetooth Speaker",
-        "GaN 充电器": "GaN Charger",
-        "线缆与配件": "Cables & Accessories",
-        "运动手环": "Fitness Tracker",
-        "平板配件": "Tablet Accessories",
-    }
-    cat_en = cat_map.get(cat, cat)
-    key = (market, cat_en)
+    # 渠道/定价数据按「市场 × 品类（中文标签）」索引
+    # 注意：channels / pricing 字典的品类键为中文（如 "TWS 耳机"），
+    # 不能转换为英文后再查找，否则永远命中不到、回退到通用兜底文案。
+    key = (market, cat)
+
+    # 「全部品类」→ 展示综合通用策略,并引导选择具体品类
+    if cat == "全部品类":
+        return {
+            "characteristic": chars.get(market, ""),
+            "channel": "线上 55% / 线下 45% — 综合各品类的通用配比。选择具体品类可查看差异化渠道策略。",
+            "pricing": "中端 — 通用定位。选择具体品类可查看针对性定价建议。",
+            "localisation": l10n.get(market, ["建议进行本地市场调研以确认要求。"]),
+        }
 
     return {
         "characteristic": chars.get(market, ""),
@@ -432,8 +432,43 @@ def _market_strategy(market: str, cat: str) -> dict:
     }
 
 
-def _social_content(stage: str, market: str) -> dict:
-    """返回阶段信息和社媒帖文草稿。"""
+def _social_content(stage: str, market: str, category: str = "全部品类") -> dict:
+    """返回阶段信息和社媒帖文草稿(内容方向与帖文按品类定制)。"""
+    # 品类 → 英文卖点短语(用于英文帖文)
+    category_blurbs = {
+        "TWS 耳机": "studio-grade sound with adaptive ANC and all-day battery in a featherlight design",
+        "智能手表": "advanced health tracking on a crystal-clear AMOLED display with 14-day battery",
+        "充电宝": "high-capacity 65W fast charging that powers your laptop and phone anywhere",
+        "蓝牙音箱": "360° waterproof sound engineered to power every adventure",
+        "GaN 充电器": "ultra-compact GaN fast charging that powers multiple devices at once",
+        "线缆与配件": "premium braided cables with 100W PD fast charging built to last",
+        "运动手环": "24/7 heart-rate & SpO2 tracking in a featherlight band with 10-day battery",
+        "平板配件": "backlit keys, precision trackpad, and all-day productivity for your tablet",
+    }
+    # 品类 → 英文品类名(用于留存期帖文)
+    category_en = {
+        "TWS 耳机": "TWS earbuds",
+        "智能手表": "smartwatch",
+        "充电宝": "power bank",
+        "蓝牙音箱": "Bluetooth speaker",
+        "GaN 充电器": "GaN charger",
+        "线缆与配件": "cables & accessories",
+        "运动手环": "fitness tracker",
+        "平板配件": "tablet accessories",
+    }
+    # 品类特化内容方向(追加到该阶段内容列表)
+    extra_content = {
+        "预热期": "{category} 卖点悬念海报（{blurb}）",
+        "发布期": "{category} 卖点实测对比（{blurb}）",
+        "留存期": "{category} 隐藏功能与使用技巧（{blurb}）",
+    }
+
+    is_specific = category in category_blurbs
+    blurb = category_blurbs.get(
+        category, "consumer tech engineered to make everyday life easier"
+    )
+    cat_en = category_en.get(category, "device")
+
     stages = {
         "预热期": {
             "goal": "在正式发布前制造期待，积累粉丝并营造热度",
@@ -482,12 +517,20 @@ def _social_content(stage: str, market: str) -> dict:
     }
 
     info = stages.get(stage, stages["预热期"])
+
+    # 追加品类特化内容方向(复制,避免污染共享的 stages 字典)
+    if is_specific and extra_content.get(stage):
+        info = dict(info)
+        info["content"] = list(info["content"]) + [
+            extra_content[stage].format(category=category, blurb=blurb)
+        ]
+
     tag = hashtags.get(market, "#ConsumerTech")
 
     if stage == "预热期":
         draft = (
             f"⚡ Something big is coming to {market}.\n\n"
-            f"We've been in the lab engineering something that's going to change "
+            f"We've been in the lab engineering {blurb} — and it's going to change "
             f"the way you experience everyday tech. Lighter. Faster. Smarter.\n\n"
             f"This isn't just another gadget — it's the one we'd use ourselves.\n\n"
             f"📬 Be the first to know: [sign-up link]\n\n"
@@ -500,7 +543,7 @@ def _social_content(stage: str, market: str) -> dict:
             f"our latest consumer electronics innovation — engineered for those "
             f"who demand more from their tech.\n\n"
             f"✨ What makes it different:\n"
-            f"⚡ Industry-leading performance\n"
+            f"⚡ {blurb[:1].upper()}{blurb[1:]}\n"
             f"🎯 Designed for real-life use\n"
             f"💰 Premium feel, honest price\n\n"
             f"🎉 Launch week special: 15% off first 200 orders.\n\n"
@@ -510,7 +553,8 @@ def _social_content(stage: str, market: str) -> dict:
     else:
         draft = (
             f"🌟 You've been part of our journey in {market} — thank you!\n\n"
-            f"Here's a pro tip: Make the most of your device with these simple hacks:\n"
+            f"Pro tip for your {cat_en}: get the most out of your device "
+            f"with these simple hacks:\n"
             f"🔋 Optimise battery settings for all-day power\n"
             f"🔄 Keep firmware updated for the latest features\n"
             f"🎒 Use the right accessories for every scenario\n\n"
@@ -536,6 +580,7 @@ with tab1:
         use_scenario=use_scenario,
         use_case=use_case,
         budget=budget,
+        category=product_category,
         top_n=3,
     )
 
@@ -659,7 +704,7 @@ with tab3:
         unsafe_allow_html=True,
     )
 
-    sm = _social_content(stage, market)
+    sm = _social_content(stage, market, product_category)
     info = sm["info"]
 
     # 第 1 行 — 目标 + 平台

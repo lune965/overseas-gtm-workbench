@@ -51,6 +51,27 @@ _BUDGET_MAP = {
     "高端": "high",
 }
 
+# 中文品类标签 → 产品数据里的英文 category 键
+_CATEGORY_MAP = {
+    "TWS 耳机": "TWS Earbuds",
+    "智能手表": "Smart Watch",
+    "充电宝": "Power Bank",
+    "蓝牙音箱": "Bluetooth Speaker",
+    "GaN 充电器": "GaN Charger",
+    "线缆与配件": "Cables & Accessories",
+    "运动手环": "Fitness Tracker",
+    "平板配件": "Tablet Accessories",
+}
+
+_ALL_CATEGORIES = "全部品类"
+
+
+def _resolve_category(category: str) -> str | None:
+    """Map a UI category label to its English catalog key; None = 不筛选."""
+    if not category or category.strip() == _ALL_CATEGORIES:
+        return None
+    return _CATEGORY_MAP.get(category.strip(), category.strip())
+
 
 def _tag(label: str, mapping: dict) -> str:
     """Map a UI label to its internal tag; return slug on fallback."""
@@ -65,6 +86,7 @@ def match_products(
     use_scenario: str,
     use_case: str,
     budget: str,
+    category: str | None = None,
     top_n: int = 3,
 ) -> list[dict]:
     """
@@ -72,12 +94,19 @@ def match_products(
 
     Strategy
     --------
-    1. Build a user-tag set from the four UI selections.
-    2. Score every product by intersection size (max 4).
-    3. Return highest-scored products (top N).
-    4. If fewer than top_n match, append unused products (prefer same use_case).
+    1. (可选) 按品类过滤产品池。
+    2. Build a user-tag set from the four UI selections.
+    3. Score every product by intersection size (max 4).
+    4. Return highest-scored products (top N).
+    5. If fewer than top_n match, append unused products (prefer same use_case).
+       当指定了品类时,只在所选品类内补齐,不跨品类。
     """
     products = load_products()
+    cat_en = _resolve_category(category)
+    if cat_en:
+        products = [p for p in products if p.get("category") == cat_en]
+        if not products:  # 所选品类暂无产品时回退全量,避免空结果
+            products = load_products()
 
     user_tags = {
         _tag(market, _MARKET_MAP),
@@ -98,26 +127,37 @@ def match_products(
     matched = [p for _, p in scored[:top_n]]
     used_ids = {p["id"] for p in matched}
 
-    # Fallback — fill remaining slots with same-use_case products
-    if len(matched) < top_n:
-        use_case_tag = _tag(use_case, _USECASE_MAP)
-        for p in products:
-            if len(matched) >= top_n:
-                break
-            if p["id"] in used_ids:
-                continue
-            if use_case_tag in _flatten_tags(p):
+    if cat_en:
+        # 品类筛选 — 只在所选品类内补齐
+        if len(matched) < top_n:
+            for p in products:
+                if len(matched) >= top_n:
+                    break
+                if p["id"] in used_ids:
+                    continue
                 matched.append(p)
                 used_ids.add(p["id"])
+    else:
+        # Fallback — fill remaining slots with same-use_case products
+        if len(matched) < top_n:
+            use_case_tag = _tag(use_case, _USECASE_MAP)
+            for p in products:
+                if len(matched) >= top_n:
+                    break
+                if p["id"] in used_ids:
+                    continue
+                if use_case_tag in _flatten_tags(p):
+                    matched.append(p)
+                    used_ids.add(p["id"])
 
-    # Last-resort — anything left
-    if len(matched) < top_n:
-        for p in products:
-            if len(matched) >= top_n:
-                break
-            if p["id"] not in used_ids:
-                matched.append(p)
-                used_ids.add(p["id"])
+        # Last-resort — anything left
+        if len(matched) < top_n:
+            for p in products:
+                if len(matched) >= top_n:
+                    break
+                if p["id"] not in used_ids:
+                    matched.append(p)
+                    used_ids.add(p["id"])
 
     return matched[:top_n]
 
